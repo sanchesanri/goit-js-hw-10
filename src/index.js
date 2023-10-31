@@ -1,5 +1,5 @@
-import {fetchBreeds} from './helpers.js/cat-api'
-import { markupSelect } from './helpers.js/markup-select';
+import {fetchBreeds} from './helpers/cat-api'
+import { markupSelect } from './helpers/markup-select';
 
 const selectRef = document.querySelector('.breed-select');
 
@@ -11,3 +11,4 @@ fetchBreeds()
   )
   .catch(console.error);
 
+console.log(1);
