@@ -1,4 +1,4 @@
-import {fetchBreeds} from './helpers/cat-api'
+import {fetchBreeds} from './cat-api'
 import { markupSelect } from './helpers/markup-select';
 
 const selectRef = document.querySelector('.breed-select');
