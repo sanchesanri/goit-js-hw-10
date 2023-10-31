@@ -10,5 +10,3 @@ fetchBreeds()
     selectRef.insertAdjacentHTML('beforeend', markupSelect(data))
   )
   .catch(console.error);
-
-console.log(1);
