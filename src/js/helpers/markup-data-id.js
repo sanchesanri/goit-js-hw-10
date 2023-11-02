@@ -3,7 +3,7 @@ export function markupData(dataId) {
     const objDate = dataId[0];
     const searchQuery = objDate.breeds[0]
   
-    return markup = `
+    return `
       <div class="img-container">
         <img src="${objDate.url}" alt="${searchQuery.name}">
       </div>
