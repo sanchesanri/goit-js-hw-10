@@ -6,12 +6,11 @@ import { markupData } from './helpers/markup-data-id';
 const refs = {
   select: document.querySelector('.breed-select'),
   divMarkup: document.querySelector('.cat-info'),
-  loader:document.querySelector('.loader'),
-  error:document.querySelector('.error'),
+  loader: document.querySelector('.loader'),
+  error: document.querySelector('.error'),
 };
 
 refs.select.addEventListener('change', onSelectChange);
-
 
 refs.select.classList.add('is-hidden');
 refs.error.classList.add('is-hidden');
@@ -23,19 +22,18 @@ fetchBreeds()
     refs.select.classList.remove('is-hidden');
     refs.loader.classList.add('is-hidden');
 
-    refs.select.insertAdjacentHTML('beforeend', markupSelect(data))
+    refs.select.insertAdjacentHTML('beforeend', markupSelect(data));
   })
-  .catch(el=>{
+  .catch(el => {
     refs.loader.classList.add('is-hidden');
     refs.error.classList.remove('is-hidden');
     console.error(refs.error.textContent);
   });
 
-
 //--------------------------
 function onSelectChange(e) {
   const value = e.target.value;
-  if (value==='default') return
+  if (value === 'default') return;
 
   // refs.loader.hidden = false;
   refs.loader.classList.remove('is-hidden');
@@ -43,12 +41,17 @@ function onSelectChange(e) {
     .then(dataId => {
       refs.loader.classList.add('is-hidden');
 
-      refs.divMarkup.innerHTML = markupData(dataId)
-      })
-    .catch(el=>{
+      console.dir(markupData(dataId));
+      console.log(markupData(dataId));
+
+      refs.divMarkup.innerHTML = markupData(dataId);
+    }
+  )
+    .catch(el => {
       refs.select.classList.add('is-hidden');
       refs.loader.classList.add('is-hidden');
       refs.error.classList.remove('is-hidden');
       console.error(refs.error.textContent, el);
-    });
+    }
+  );
 }

@@ -14,6 +14,5 @@ export function markupData(dataId) {
           <span>${searchQuery.temperament}</span>
         </h3>
     </div>`;
-  
     // refs.divMarkup.innerHTML = markup;
   }
