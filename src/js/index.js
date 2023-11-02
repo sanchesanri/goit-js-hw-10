@@ -49,6 +49,6 @@ function onSelectChange(e) {
       refs.select.classList.add('is-hidden');
       refs.loader.classList.add('is-hidden');
       refs.error.classList.remove('is-hidden');
-      console.error(refs.error.textContent);
+      console.error(refs.error.textContent, el);
     });
 }
