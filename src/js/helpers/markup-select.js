@@ -1,5 +1,12 @@
 export function markupSelect (obj) {
-    return markup = obj.map(({id,name})=>{
+    const markup = obj.map(({id,name})=>{
         return `<option value="${id}">${name}</option>`
-    }).join('');
+    });
+
+    const firstOption = '<option value="default" selected>--Make your choice--</option>';
+
+    markup.unshift(firstOption);
+    markup.join('');
+
+    return markup
 };

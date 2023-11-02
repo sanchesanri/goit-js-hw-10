@@ -1,41 +1,54 @@
 import { fetchBreeds } from './cat-api';
 import { markupSelect } from './helpers/markup-select';
 import { fetchCatByBreed } from './cat-api';
+import { markupData } from './helpers/markup-data-id';
 
 const refs = {
   select: document.querySelector('.breed-select'),
   divMarkup: document.querySelector('.cat-info'),
+  loader:document.querySelector('.loader'),
+  error:document.querySelector('.error'),
 };
 
 refs.select.addEventListener('change', onSelectChange);
 
+
+refs.select.classList.add('is-hidden');
+refs.error.classList.add('is-hidden');
+
 //fetch data and render markup---------------------------
 
 fetchBreeds()
-  .then(data => refs.select.insertAdjacentHTML('beforeend', markupSelect(data)))
-  .catch(console.error);
+  .then(data => {
+    refs.select.classList.remove('is-hidden');
+    refs.loader.classList.add('is-hidden');
 
+    refs.select.insertAdjacentHTML('beforeend', markupSelect(data))
+  })
+  .catch(el=>{
+    refs.loader.classList.add('is-hidden');
+    refs.error.classList.remove('is-hidden');
+    console.error(refs.error.textContent);
+  });
+
+
+//--------------------------
 function onSelectChange(e) {
   const value = e.target.value;
+  if (value==='default') return
 
+  // refs.loader.hidden = false;
+  refs.loader.classList.remove('is-hidden');
   fetchCatByBreed(value)
-    .then(dataId => markupData(dataId))
-    .catch(console.log);
-}
+    .then(dataId => {
+      refs.loader.classList.add('is-hidden');
 
-function markupData(dataId) {
-  // const params1 = {...[...dataId]};
-  const objDate = dataId[0];
-
-  const markup = `
-  <div class="img-container">
-  <img src="${objDate.url}" alt="${objDate.breeds[0].name}"></div>
-  <div class="text-container">
-  <h2>${objDate.breeds[0].name}</h2>
-  <p>${objDate.breeds[0].description}</p>
-  <h3>Temperament:<span 
-  >${objDate.breeds[0].temperament}</span></h3>
-  </div>`;
-
-  refs.divMarkup.innerHTML = markup;
+      refs.divMarkup.innerHTML = markupData(dataId)
+      })
+    .catch(el=>{
+      refs.select.classList.add('is-hidden');
+      refs.loader.classList.add('is-hidden');
+      refs.error.classList.remove('is-hidden');
+      console.error(refs.error.textContent);
+    });
 }

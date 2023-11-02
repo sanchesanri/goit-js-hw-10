@@ -1,0 +1,29 @@
+.cat-info{
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+}
+
+.img-container > img{
+    width: 350px;
+}
+
+.text-container{
+    width: 500px;
+    text-decoration: dotted;
+
+}
+
+.is-hidden {
+    display: none;
+}
+
+.error{
+    color:#ff0000;
+    font-size: larger;
+    font-weight: 700;
+}
+
+.breed-select{
+    margin-bottom: 20px;
+}
