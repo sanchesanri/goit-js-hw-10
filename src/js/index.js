@@ -45,11 +45,15 @@ fetchBreeds()
 function onSelectChange(e) {
   const value = e.target.value;
   if (value === 'default') return;
+  refs.divMarkup.innerHTML = ''
 
   invisibleTag(refs.loader)
+  visibleTag(refs.error)
+
   fetchCatByBreed(value)
     .then(dataId => {
-      visibleTag(refs.loader)
+      visibleTag(refs.loader);
+      
 
       refs.divMarkup.innerHTML = markupData(dataId);
     })
@@ -58,7 +62,14 @@ function onSelectChange(e) {
       visibleTag(refs.loader)
       invisibleTag(refs.error)
 
+      refs.divMarkup.innerHTML = ''
       console.error(refs.error.textContent, el);
     });
 }
 
+/**
+ * Доброго дня, Андрій) 
+1) При виборі породи з помилкою (наприклад, Malayan) блок з інформацією про попередню породу потрібно прибрати.
+2) При виборі породи з помилкою (наприклад, Malayan), а потім при зміні породи на працюючу, блок з помилкою потрібно приховати.
+3) При зміні породи, поки вантажаться дані і показується лоадер, потрібно прибрати блок з інфо про попередню породу.
+ */
