@@ -4,6 +4,10 @@
     justify-content: flex-start;
 }
 
+.cat-info > div {
+    margin-right: 10px;
+}
+
 .img-container > img{
     width: 350px;
 }
@@ -26,4 +30,16 @@
 
 .breed-select{
     margin-bottom: 20px;
+}
+
+.js-container-select{
+    width: 350px;
+}
+
+h3 > span{
+    font-weight: 100;
+}
+
+p{
+    margin-bottom: 10px;
 }

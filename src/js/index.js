@@ -1,32 +1,43 @@
+import SlimSelect from 'slim-select';
 import { fetchBreeds } from './cat-api';
 import { markupSelect } from './helpers/markup-select';
 import { fetchCatByBreed } from './cat-api';
 import { markupData } from './helpers/markup-data-id';
+import { visibleTag } from './helpers/visible';
+import{invisibleTag} from './helpers/invisible';
 
 const refs = {
   select: document.querySelector('.breed-select'),
   divMarkup: document.querySelector('.cat-info'),
-  loader: document.querySelector('.loader'),
+  loader: document.querySelector('.loader-text'),
   error: document.querySelector('.error'),
 };
 
 refs.select.addEventListener('change', onSelectChange);
 
-refs.select.classList.add('is-hidden');
-refs.error.classList.add('is-hidden');
+visibleTag(refs.select);
 
+//SELECT--------------------------------
+refs.select.id = 'selectElement';
 //fetch data and render markup---------------------------
 
 fetchBreeds()
   .then(data => {
-    refs.select.classList.remove('is-hidden');
-    refs.loader.classList.add('is-hidden');
+    invisibleTag(refs.select)
+    visibleTag(refs.loader)
 
     refs.select.insertAdjacentHTML('beforeend', markupSelect(data));
+    const slimSelect = new SlimSelect({
+      select: '#selectElement',
+      settings: {
+        showSearch: false,
+      }
+    });
   })
   .catch(el => {
-    refs.loader.classList.add('is-hidden');
-    refs.error.classList.remove('is-hidden');
+    visibleTag(refs.loader);
+    invisibleTag(refs.error)
+
     console.error(refs.error.textContent);
   });
 
@@ -35,23 +46,19 @@ function onSelectChange(e) {
   const value = e.target.value;
   if (value === 'default') return;
 
-  // refs.loader.hidden = false;
-  refs.loader.classList.remove('is-hidden');
+  invisibleTag(refs.loader)
   fetchCatByBreed(value)
     .then(dataId => {
-      refs.loader.classList.add('is-hidden');
-
-      console.dir(markupData(dataId));
-      console.log(markupData(dataId));
+      visibleTag(refs.loader)
 
       refs.divMarkup.innerHTML = markupData(dataId);
-    }
-  )
+    })
     .catch(el => {
-      refs.select.classList.add('is-hidden');
-      refs.loader.classList.add('is-hidden');
-      refs.error.classList.remove('is-hidden');
+      visibleTag(refs.select)
+      visibleTag(refs.loader)
+      invisibleTag(refs.error)
+
       console.error(refs.error.textContent, el);
-    }
-  );
+    });
 }
+
